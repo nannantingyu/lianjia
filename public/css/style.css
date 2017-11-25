@@ -21,13 +21,19 @@
     padding:10px;
 }
 .title{
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
-    padding: 5px 0;
+    padding: 5px 0 10px 0;
 }
 .nomargin{
     margin:0;
 }
 .row p{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+.no-padding-right{
+    padding-right: 0;
+}
+.padding-4{
+    padding: 0 4px;
 }

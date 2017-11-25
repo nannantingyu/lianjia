@@ -140,12 +140,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 col-xs-6">
+                    <div class="col-sm-6 col-md-6 col-xs-6 padding-4">
                         @php
                             $img = basename(str_replace('/uploads/crawler', '', explode(',', $house->images)[0]));
                             $img = str_replace("900x600", "240x160", $img);
                         @endphp
-                        <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
+                        <a href="https://tj.lianjia.com/ershoufang/{{$house->house_id}}.html">
+                            <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
+                        </a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
                         <p>{{ $house->price }}万/{{ $house->unit_price }}元 <span>{{ $house->area }}</span></p>
@@ -168,7 +170,7 @@
                     <div class="col-sm-6 col-md-6 col-xs-6">
                         <span>小区年代：{{$house->build_year}}</span>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-xs-6">
+                    <div class="col-sm-6 col-md-6 col-xs-6 nopadding">
                         <span>小区均价：{{$house->uprice}}</span>
                     </div>
                 </div>
