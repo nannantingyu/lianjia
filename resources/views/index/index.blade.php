@@ -169,18 +169,18 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-xs-6 nopadding">
                         <p>
-                            <span>小区年代：{{$house->build_year}}</span>
+                            小区年代：{{$house->build_year}}
                         </p>
                     </div>
                     <div class="col-sm-6 col-md-6 col-xs-6 nopadding">
                         <p>
-                            <span>小区均价：{{$house->uprice}}</span>
+                            小区均价：{{$house->uprice}}
                         </p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-xs-12">
-                        <span>{{ $house->tag }}</span>
+                    <div class="col-sm-12 col-md-12 col-xs-12 nopadding">
+                        <p>{{ $house->tag }}</p>
                     </div>
                 </div>
                 <hr>
