@@ -134,88 +134,71 @@
                 </div>
             </div>
             @foreach($houses as $house)
-            <div class="row">
-                <div class="col-sm-4 col-md-4 col-xs-4 padding5 margin10">
-			@php
-				$img = basename(str_replace('/uploads/crawler', '', explode(',', $house->images)[0]));
-				$img = str_replace("900x600", "240x160", $img);
-			@endphp
-                    <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
-                </div>
-                <div class="col-sm-8 col-md-8 col-xs-8 padding5">
-                    <p class="title">{{ $house->title }}</p>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-xs-6">
-                            <span>{{ $house->price }}万/{{ $house->unit_price }}元</span>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xs-6">
-                            <span>{{ $house->area }}</span>
-                            <span>{{ $house->direction }}</span>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 title">
+                        <a href="https://tj.lianjia.com/ershoufang/{{$house->house_id}}.html">{{ $house->title }}</a>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-xs-6">
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xs-6">
+                        @php
+                            $img = basename(str_replace('/uploads/crawler', '', explode(',', $house->images)[0]));
+                            $img = str_replace("900x600", "240x160", $img);
+                        @endphp
+                        <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+                        <p>{{ $house->price }}万/{{ $house->unit_price }}元 <span>{{ $house->area }}</span></p>
+                        <p>
                             <span>{{ $house->district }}</span>
                             <span>{{ $house->street }}</span>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xs-6">
+                            <span>{{ $house->direction }}</span>
+                        </p>
+                        <p>
                             <span>{{ $house->residential }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-xs-6">
                             <span>{{ $house->flood }}</span>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xs-6">
+                        </p>
+                        <p>
                             <span>{{ $house->list_time }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-xs-6">
                             <span>{{ $house->hold_years }}</span>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-xs-6">
-                            <span><a href="https://tj.lianjia.com/ershoufang/{{$house->house_id}}.html">链家地址</a></span>
-                        </div>
-                    </div>
-		    <div class="row">
-			<div class="col-sm-12 col-md-12 col-xs-12">
-			    <span>小区年代：{{$house->build_year}}</span>
-			</div>
-		    </div>
-		    <div class="row">
-			<div class="col-sm-12 col-md-12 col-xs-12">
-			    <span>小区均价：{{$house->uprice}}</span>
-			</div>
-		    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-xs-12">
-                            <span>{{ $house->tag }}</span>
-                        </div>
+                        </p>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-xs-6">
+                        <span>小区年代：{{$house->build_year}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-6">
+                        <span>小区均价：{{$house->uprice}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xs-12">
+                        <span>{{ $house->tag }}</span>
+                    </div>
+                </div>
+                <hr>
             @endforeach
             <div class="row text-center">
-		<ul class='pagination'>
-			@if($page['now'] != 1)
-				<li><a href="{{$url}}&page=1">首页</a></li>
-			@endif
-			@if($page['pre'] > 0)
-				<li><a href="{{$url}}&page={{$page['pre']}}">上一页</a></li>
-			@endif
-			<li class='active'><a href-"{{$url}}&page={{$page['now']}}">{{$page['now']}}</a></li>
-			@if($page['next'] <= $page['last'])
-				<li><a href="{{$url}}&page={{$page['next']}}">下一页</a></li>
-			@endif
-			@if($page['now'] < $page['last']-1)
-				<li><a href="{{$url}}&page={{$page['last']-1}}">{{$page['last']-1}}</a></li>
-			@endif
-			@if($page['now'] != $page['last'])
-				<li><a href="{{$url}}&page={{$page['last']}}">末页</a></li>
-			@endif
-			
-		</ul>
+                <ul class='pagination'>
+                    @if($page['now'] != 1)
+                        <li><a href="{{$url}}&page=1">首页</a></li>
+                    @endif
+                    @if($page['pre'] > 0)
+                        <li><a href="{{$url}}&page={{$page['pre']}}">上一页</a></li>
+                    @endif
+                    <li class='active'><a href-"{{$url}}&page={{$page['now']}}">{{$page['now']}}</a></li>
+                    @if($page['next'] <= $page['last'])
+                        <li><a href="{{$url}}&page={{$page['next']}}">下一页</a></li>
+                    @endif
+                    @if($page['now'] < $page['last']-1)
+                        <li><a href="{{$url}}&page={{$page['last']-1}}">{{$page['last']-1}}</a></li>
+                    @endif
+                    @if($page['now'] != $page['last'])
+                        <li><a href="{{$url}}&page={{$page['last']}}">末页</a></li>
+                    @endif
+
+                </ul>
             </div>
         </div>
     </body>
