@@ -41,6 +41,7 @@ function init() {
         }
     }
 
+    $("select:not([multiple])").parent().find("div.dropdown-menu ul li.selected").addClass("active")
     init_params = params;
 }
 
@@ -53,7 +54,7 @@ $(function(){
     });
     $('.selectpicker').on('hidden.bs.select', function (e) {
         var value = $(this).val(), name = $(this).data('name');
-        if(value){
+        if(value && value.length > 0){
             if(typeof value == 'object') {
                 value = value.join(',');
             }

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>链家-粮叔叔</title>
+        <title>链家选房工具-粮叔叔</title>
         <meta charset="utf-8">
+        <meta name="keywords" content="链家工具,选房工具,筛选">
+        <meta name="description" content="粮叔叔提供的链家选房工具, 区域多选, 多种排序, 小区年代筛选, 助你快速找到自己想要的房源">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -14,6 +16,12 @@
     </head>
     <body style="max-width:100%;over-flow:hidden;">
         <div class="container" style="max-width:95%;">
+            <div class="row">
+                <div class="navbar-brand">
+                    <a href="http://www.yjshare.cn"><img src="{{ asset('images/logo.png') }}" alt="粮叔叔logo"></a>
+                    <h1 class="none">粮叔叔</h1>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3 col-xs-3 col-sm-3 nopadding">
                     <div class="form-group nomargin">

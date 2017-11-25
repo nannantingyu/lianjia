@@ -37,3 +37,9 @@
 .padding-4{
     padding: 0 4px;
 }
+.navbar-brand{
+    height: 70px;
+}
+.navbar-brand img{
+    max-width: 100px;
+}
