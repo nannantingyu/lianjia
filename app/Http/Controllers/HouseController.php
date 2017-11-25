@@ -22,9 +22,9 @@ class HouseController extends Controller
         $elevator = $request->input('elevator', false);
         $subway = $request->input('subway', false);
 
-        $where_district = [];
+        //$where_district = [];
         if(!is_null($area)) {
-            $where_district[] = "district in ('".implode("','", explode(',', $area))."')";
+            $w_district = "district in ('".implode("','", explode(',', $area))."')";
         }
 
         if(!is_null($price)) {
@@ -63,78 +63,139 @@ class HouseController extends Controller
                     $end = null;
                 }
             }
-        }
 
-        $price_limit[] = array(
-            'start'=> $start,
-            'end'=>$end
-        );
-
-        $where_price = [];
-        foreach($price_limit as $val) {
-            $where_price[] = "price between ".$val['start'].' and '. $val['end'];
+	    if(!is_null($start) and !is_null($end)) {
+                $price_limit[] = array(
+                    'start'=> $start,
+                    'end'=>$end
+                );
+	    }
         }
+	
+
+	$w_price = null;
+	if(!is_null($price)) {
+            $where_price = [];
+            foreach($price_limit as $val) {
+                $where_price[] = "price between ".$val['start'].' and '. $val['end'];
+            }
+
+     	    $w_price = implode(" or ", $where_price);
+	}
 
         $where_huxing = [];
+	$w_huxing = null;
         if(!is_null($huxing)) {
             $huxing = explode(",", $huxing);
             foreach($huxing as $val) {
                 $where_huxing[] = "layout like '".$val."室%'";
             }
+	    $w_huxing = implode(" or ", $where_huxing);
         }
+	
 
         $where_flood = [];
+	$w_flood = null;
         if(!is_null($flood)) {
             $flood = explode(",", $flood);
             foreach($flood as $val) {
                 $where_flood[] = "flood like '".$val."楼%'";
             }
+	    $w_flood = implode(" or ", $where_flood);
         }
 
-        dump($where_huxing);
+	$where = '';
+	if(!is_null($w_price)) {
+	    $where .= '('.$w_price.') and ';
+	}
+
         if($elevator) {
-            $where = "elevator='有' and (";
-        }
-        else {
-            $where = '(';
+            $where .= "(elevator='有') and ";
         }
 
         if($subway) {
-            $where .= "tag like '%号线%') and (";
+            $where .= "(tag like '%号线%') and ";
         }
 
-        if(!empty($where_district)) {
-            $where .= implode(") or (", $where_district);
-            $where .= ') and ((';
-        }
-        else {
-            $where .= '(';
+        if(isset($w_district)) {
+            $where .= "(".$w_district.") and ";
         }
 
-        if(!empty($where_price)) {
-            $where .= implode(") or (", $where_price);
-            $where .= ')) and ((';
+        if($w_price) {
+            $where .= "(".$w_price.") and ";
         }
 
-        if(!empty($where_huxing)) {
-            $where .= implode(') or (', $where_huxing);
-            $where .= ')) and ((';
+        if($w_huxing) {
+            $where .= "(".$w_huxing.") and ";
         }
 
-        if(!empty($where_flood)) {
-            $where .= implode(') or (', $where_flood);
+        if($w_flood) {
+            $where .= "(".$w_flood.") and ";
         }
 
-        $where .= "))";
+        if(substr(trim($where), -3) == 'and'){
+	    $where = substr(trim($where), 0, -3);
+	}
+	//dump($where);
+	//die;
+	$order_map = [
+	    "价格"=> 'price',
+	    "面积"=> 'area',
+	    "小区均价"=> 'unit_price',
+	    "关注人数"=> 'followed',
+	    "带看人数"=> 'visited',
+	    "发布时间"=> 'list_time'
+	];
+	
 
-        dump($where);
-        dump('select * from lianjia_house where '.$where.' limit 10');
-        $houses = DB::select('select * from crawl_lianjia_house where '.$where.' limit 10');
+	$page_now = $request->input("page", 1);
+	$per_page = 10;
+	$sql = "select house.*, residential.build_year, residential.build_num, residential.unit_price as uprice, residential.sell_num from crawl_lianjia_house house join crawl_lianjia_residential residential on house.residential_id=residential.residential_id ";
+	$count_sql = 'select count(*) as cou from crawl_lianjia_house ';
+	if($where) {
+		$sql .= ' where '.$where;
+		$count_sql .= ' where '.$where;
+	}
+	if(!is_null($order) and isset($order_map[$order])) {
+	    $sql .= " order by ".$order_map[$order].' desc';
+	}
 
+	
+	$all_count = DB::select($count_sql);
+	$all_count = $all_count[0]->cou;
+	$all_page = intval(ceil($all_count / $per_page));
+
+	//$sql .= ''
+	$sql .= ' limit '.($page_now-1)*$per_page.",".$per_page;
+	$page = [
+	    "now"=> $page_now,
+	    "pre"=> $page_now - 1,
+	    "next"=> $page_now + 1,
+	    "last"=> $all_page
+	];
+	
+	$houses = DB::select($sql);
+	$url = trim('http://'.$_SERVER['HTTP_HOST'].(preg_replace("/page=\d+\&?/", "", $_SERVER['REQUEST_URI'])), "&");
+	if(substr($url, -1) == '/'){
+		$url = substr($url, 0, -1);
+	}
+	$url = $url."?_time=".time();
 //        $houses = House::select('select * from lianjia_house where');
-        dump($houses);
-        die;
-        $houses = $houses->simplePaginate(15);
-        return view('index/index', ['houses'=>$houses]);
+        //$houses = $houses->simplePaginate(15);
+        return view('index/index', ['houses'=>$houses, "page"=>$page, "url"=>$url]);
+    }
+
+    public function img(Request $request) {
+	$name = $request->input('name', null);
+	$base_url = "https://image1.ljcdn.com/120000-inspection/";
+	if(!is_null($name)) {
+	    $img = file_get_contents($base_url.$name);
+	    return response($img, 200, [
+		'Content-Type' => 'image/png',
+	    ]);
+	}
+	else{
+	    return "图片地址不合法";
+	}
     }
 }
