@@ -53,12 +53,14 @@ $(function(){
     });
     $('.selectpicker').on('hidden.bs.select', function (e) {
         var value = $(this).val(), name = $(this).data('name');
-        if(typeof value == 'object') {
-            value = value.join(',');
-        }
+        if(value){
+            if(typeof value == 'object') {
+                value = value.join(',');
+            }
 
-        if(!init_params[name] || init_params[name] != value) {
-            redirect([{key: name, value: value}]);
+            if(!init_params[name] || init_params[name] != value) {
+                redirect([{key: name, value: value}]);
+            }
         }
     });
 
@@ -78,6 +80,21 @@ $(function(){
             {key: 'direct', value: direct.join(',')},
             {key: 'flood', value: flood.join(',')},
             {key: 'elevator', value: elevator},
+        ];
+
+        redirect(params);
+    });
+
+    $('#year').click(function(){
+        var from = $('#from').val(), to = $('#to').val();
+        if(!from && ! to) {
+            alert("必须填一项");
+            return;
+        }
+
+        var params = [
+            {key: 'from', value: from},
+            {key: 'to', value: to},
         ];
 
         redirect(params);

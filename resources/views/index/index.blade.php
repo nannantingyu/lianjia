@@ -70,13 +70,13 @@
                 </div>
             </div>
             <div class="row nopadding">
-                <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
-                    <div class="dropdown">
+                <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+                    <div class="dropdown pull-left">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             其他选项
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" style="min-width:100%;" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu" style="min-width:350%;" aria-labelledby="dropdownMenu1">
                             <li><button class="btn btn-default toggle btn-subway">地铁</button></li>
                             <li role="separator" class="divider"></li>
                             <li>
@@ -100,6 +100,36 @@
                                 <button class="btn btn-primary" id="sure">确定</button>
                             </li>
                         </ul>
+                    </div>
+                    <div class="dropdown pull-left">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            年代
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" style="min-width:300%; padding: 20px;" aria-labelledby="dropdownMenu1">
+                            <li>
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="exampleInputName2">From</label>
+                                        <input type="text" class="form-control" id="from" placeholder="开始年代1990">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">To</label>
+                                        <input type="text" class="form-control" id="to" placeholder="结束年代">
+                                    </div>
+                                </form>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <button class="btn btn-primary" id="year">确定</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pull-left">
+                        <select data-name="order_way" class="selectpicker form-control" title="排序方式">
+                            <option value="asc">从小到大</option>
+                            <option value="desc">从大到小</option>
+                        </select>
                     </div>
                 </div>
             </div>
