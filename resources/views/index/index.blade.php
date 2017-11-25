@@ -3,7 +3,7 @@
     <head>
         <title>链家-粮叔叔</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('plugin/bootstrap-select/css/bootstrap-select.min.css') }}">
@@ -12,8 +12,8 @@
         <script src="{{ asset('plugin/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
     </head>
-    <body>
-        <div class="container">
+    <body style="max-width:100%;over-flow:hidden;">
+        <div class="container" style="max-width:95%;">
             <div class="row">
                 <div class="col-md-3 col-xs-3 col-sm-3 nopadding">
                     <div class="form-group nomargin">
@@ -36,7 +36,7 @@
                     <select data-name="order" class="selectpicker form-control" title="排序">
                         <option>价格</option>
                         <option>面积</option>
-                        <option>小区均价</option>
+                        <option>均价</option>
                         <option>关注人数</option>
                         <option>带看人数</option>
                         <option>发布时间</option>
@@ -106,7 +106,11 @@
             @foreach($houses as $house)
             <div class="row">
                 <div class="col-sm-4 col-md-4 col-xs-4 padding5 margin10">
-                    <img style="width:100%;" src="http://img.com{{ str_replace('/uploads/crawler', '', explode(',', $house['images'])[0]) }}" alt="house1.jpg">
+			@php
+				$img = basename(str_replace('/uploads/crawler', '', explode(',', $house->images)[0]));
+				$img = str_replace("900x600", "240x160", $img);
+			@endphp
+                    <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
                 </div>
                 <div class="col-sm-8 col-md-8 col-xs-8 padding5">
                     <p class="title">{{ $house->title }}</p>
@@ -154,7 +158,25 @@
             </div>
             @endforeach
             <div class="row text-center">
-                {{ $houses->links() }}
+		<ul class='pagination'>
+			@if($page['now'] != 1)
+				<li><a href="{{$url}}&page=1">首页</a></li>
+			@endif
+			@if($page['pre'] > 0)
+				<li><a href="{{$url}}&page={{$page['pre']}}">上一页</a></li>
+			@endif
+			<li class='active'><a href-"{{$url}}&page={{$page['now']}}">{{$page['now']}}</a></li>
+			@if($page['next'] <= $page['last'])
+				<li><a href="{{$url}}&page={{$page['next']}}">下一页</a></li>
+			@endif
+			@if($page['now'] < $page['last']-1)
+				<li><a href="{{$url}}&page={{$page['last']-1}}">{{$page['last']-1}}</a></li>
+			@endif
+			@if($page['now'] != $page['last'])
+				<li><a href="{{$url}}&page={{$page['last']}}">末页</a></li>
+			@endif
+			
+		</ul>
             </div>
         </div>
     </body>
