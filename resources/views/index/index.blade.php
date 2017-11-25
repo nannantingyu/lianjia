@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="row nopadding">
-                <div class="col-md-6 col-sm-6 col-xs-6 nopadding">
+                <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
                     <div class="dropdown pull-left">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             其他选项
