@@ -116,8 +116,7 @@
                     <p class="title">{{ $house->title }}</p>
                     <div class="row">
                         <div class="col-sm-6 col-md-6 col-xs-6">
-                            <span>{{ $house->price }}万</span>
-                            <span>{{ $house->unit_price }}</span>
+                            <span>{{ $house->price }}万/{{ $house->unit_price }}元</span>
                         </div>
                         <div class="col-sm-6 col-md-6 col-xs-6">
                             <span>{{ $house->area }}</span>
@@ -149,6 +148,16 @@
                             <span><a href="https://tj.lianjia.com/ershoufang/{{$house->house_id}}.html">链家地址</a></span>
                         </div>
                     </div>
+		    <div class="row">
+			<div class="col-sm-12 col-md-12 col-xs-12">
+			    <span>小区年代：{{$house->build_year}}</span>
+			</div>
+		    </div>
+		    <div class="row">
+			<div class="col-sm-12 col-md-12 col-xs-12">
+			    <span>小区均价：{{$house->uprice}}</span>
+			</div>
+		    </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-xs-12">
                             <span>{{ $house->tag }}</span>
