@@ -6,12 +6,12 @@
         <meta name="keywords" content="链家工具,选房工具,筛选">
         <meta name="description" content="粮叔叔提供的链家选房工具, 区域多选, 多种排序, 小区年代筛选, 助你快速找到自己想要的房源">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugin/bootstrap-select/css/bootstrap-select.min.css') }}">
-        <script src="{{ asset('js/jquery.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.js') }}"></script>
-        <script src="{{ asset('plugin/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css">
+        <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
         <script src="{{ asset('js/main.js') }}"></script>
     </head>
     <body style="max-width:100%;over-flow:hidden;">
