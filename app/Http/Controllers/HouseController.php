@@ -202,7 +202,6 @@ class HouseController extends Controller
             "last" => $all_page
         ];
 
-        echo $sql;
         $houses = DB::select($sql);
         $url = trim('http://' . $_SERVER['HTTP_HOST'] . (preg_replace("/page=\d+\&?/", "", $_SERVER['REQUEST_URI'])), "&");
         if (substr($url, -1) == '/') {
@@ -219,16 +218,14 @@ class HouseController extends Controller
         $name = $request->input('name', null);
         $tmp_name = "images/".$name;
 
-        header("Cache-Control: public");
-        header("Pragma: cache");
         $offset = 30*60*60*24; // cache 1 month
-        $ExpStr = "Expires: ".gmdate("D, d M Y H:i:s", time() + $offset)." GMT";
-        header($ExpStr);
-
         if(file_exists($tmp_name))
         {
             return response(file_get_contents($tmp_name), 200, [
                 'Content-Type' => 'image/png',
+                "Cache-Control"=>" public",
+                "Pragma" => "cache",
+                "Expires" => gmdate("D, d M Y H:i:s", time() + $offset)." GMT"
             ]);
         }
 
@@ -238,6 +235,9 @@ class HouseController extends Controller
             file_put_contents($tmp_name, $img);
             return response($img, 200, [
                 'Content-Type' => 'image/png',
+                "Cache-Control"=>" public",
+                "Pragma" => "cache",
+                "Expires" => gmdate("D, d M Y H:i:s", time() + $offset)." GMT"
             ]);
         } else {
             return "图片地址不合法";
