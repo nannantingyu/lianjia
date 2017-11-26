@@ -155,7 +155,7 @@
                             $img = str_replace("900x600", "240x160", $img);
                         @endphp
                         <a href="https://tj.lianjia.com/ershoufang/{{$house->house_id}}.html">
-                            <img style="width:100%;" src="http://ads.yjshare.cn/img?name={{ $img }}" alt="house.jpg">
+                            <img style="width:100%;" src="http://house.com/img?name={{ $img }}" alt="house.jpg">
                         </a>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 nopadding">

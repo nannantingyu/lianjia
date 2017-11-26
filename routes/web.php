@@ -16,3 +16,4 @@
 //});
 
 Route::get('/', "HouseController@index");
+Route::get('/img', "HouseController@img");
