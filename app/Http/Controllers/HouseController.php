@@ -166,8 +166,15 @@ class HouseController extends Controller
 
         $page_now = $request->input("page", 1);
         $per_page = 10;
-        $sql = "select house.*, residential.build_year, residential.build_num, residential.unit_price as uprice, residential.sell_num from crawl_lianjia_house house join crawl_lianjia_residential residential on house.residential_id=residential.residential_id ";
+        $sql = "select house.*, residential.build_year, residential.build_num, residential.unit_price as uprice, residential.sell_num from crawl_lianjia_house house ";
         $count_sql = 'select count(*) as cou from crawl_lianjia_house house join crawl_lianjia_residential residential on house.residential_id=residential.residential_id ';
+
+        if (!is_null($order) and isset($order_map[$order])) {
+            $sql .= " force index(idx_". $order_map[$order].') ';
+        }
+
+        $sql .= 'join crawl_lianjia_residential residential on house.residential_id=residential.residential_id ';
+
         if ($where) {
             $sql .= ' where ' . $where;
             $count_sql .= ' where ' . $where;
@@ -195,6 +202,7 @@ class HouseController extends Controller
             "last" => $all_page
         ];
 
+        echo $sql;
         $houses = DB::select($sql);
         $url = trim('http://' . $_SERVER['HTTP_HOST'] . (preg_replace("/page=\d+\&?/", "", $_SERVER['REQUEST_URI'])), "&");
         if (substr($url, -1) == '/') {
