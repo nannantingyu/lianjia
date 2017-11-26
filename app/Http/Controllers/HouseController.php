@@ -209,9 +209,18 @@ class HouseController extends Controller
     public function img(Request $request)
     {
         $name = $request->input('name', null);
+        $tmp_name = "images/".$name;
+        if(file_exists($tmp_name))
+        {
+            return response(file_get_contents($tmp_name), 200, [
+                'Content-Type' => 'image/png',
+            ]);
+        }
+
         $base_url = "https://image1.ljcdn.com/120000-inspection/";
         if (!is_null($name)) {
             $img = file_get_contents($base_url . $name);
+            file_put_contents($tmp_name, $img);
             return response($img, 200, [
                 'Content-Type' => 'image/png',
             ]);
