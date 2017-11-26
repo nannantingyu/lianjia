@@ -218,6 +218,13 @@ class HouseController extends Controller
     {
         $name = $request->input('name', null);
         $tmp_name = "images/".$name;
+
+        header("Cache-Control: public");
+        header("Pragma: cache");
+        $offset = 30*60*60*24; // cache 1 month
+        $ExpStr = "Expires: ".gmdate("D, d M Y H:i:s", time() + $offset)." GMT";
+        header($ExpStr);
+
         if(file_exists($tmp_name))
         {
             return response(file_get_contents($tmp_name), 200, [
