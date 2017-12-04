@@ -216,5 +216,15 @@
                 </ul>
             </div>
         </div>
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?f5b1c5c9a9254e7dd9067a4e12e05b2c";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+
     </body>
 </html>
